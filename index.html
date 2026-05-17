@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>何蕊 · 破次元少女 | 初一Coser的幻想领地</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(145deg, #e6f0ff 0%, #b8d9ff 100%);
+            color: #3c2a3e;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #c9e0f5; }
+        ::-webkit-scrollbar-thumb { background: #6b9fd1; border-radius: 12px; }
+        .glow-pointer {
+            position: fixed;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(100, 150, 230, 0.25), rgba(70, 130, 200, 0.08) 70%, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            filter: blur(45px);
+            z-index: 0;
+        }
+        .site-wrapper { position: relative; z-index: 2; }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(16px);
+            background: rgba(240, 248, 255, 0.8);
+            z-index: 100;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(70, 130, 200, 0.3);
+        }
+        .navbar.scrolled {
+            background: rgba(220, 240, 255, 0.95);
+            padding: 0.7rem 5%;
+            border-bottom-color: #5a9acf;
+        }
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3a7ca5, #1e5a7a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links a {
+            color: #2c5a7a;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .nav-links a:hover { color: #1a4f6e; }
+        section { padding: 5rem 8%; position: relative; }
+        .container { max-width: 1300px; margin: 0 auto; }
+        h2 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: inline-block;
+            background: linear-gradient(120deg, #2c5a7a, #5a9acf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border-left: 5px solid #5a9acf;
+            padding-left: 18px;
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 6rem;
+        }
+        .hero-content h1 {
+            font-size: 3.7rem;
+            font-weight: 800;
+            color: #1f4e6e;
+        }
+        .hero-greeting {
+            font-size: 1.5rem;
+            color: #2c6a8e;
+            background: rgba(220, 240, 255, 0.6);
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            margin-bottom: 1rem;
+        }
+        .dynamic-text {
+            font-size: 1.9rem;
+            font-weight: 600;
+            margin: 1rem 0;
+            min-height: 4.5rem;
+        }
+        .dynamic-word {
+            background: linear-gradient(135deg, #2c5a7a, #5a9acf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border-right: 3px solid #5a9acf;
+            padding-right: 8px;
+            animation: blinkCursor 0.8s infinite;
+        }
+        @keyframes blinkCursor {
+            0%, 100% { border-color: #5a9acf; }
+            50% { border-color: transparent; }
+        }
+        .hero-desc {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 1.2rem auto;
+            color: #2c5a7a;
+            background: rgba(240, 248, 255, 0.7);
+            padding: 0.8rem 1.4rem;
+            border-radius: 40px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(105deg, #5a9acf, #2c6a8e);
+            color: white;
+            box-shadow: 0 8px 18px rgba(44, 106, 142, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(44, 106, 142, 0.5);
+        }
+        .btn-outline {
+            border: 2px solid #5a9acf;
+            color: #2c5a7a;
+            background: rgba(240, 248, 255, 0.7);
+        }
+        .btn-outline:hover {
+            background: #e0f0ff;
+            transform: translateY(-3px);
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-text p {
+            font-size: 1.08rem;
+            line-height: 1.7;
+            color: #2c5a7a;
+            margin-bottom: 1.3rem;
+        }
+        .trait-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+        .trait-item {
+            background: rgba(220, 240, 255, 0.8);
+            backdrop-filter: blur(4px);
+            padding: 0.6rem 1.3rem;
+            border-radius: 50px;
+            border-left: 3px solid #5a9acf;
+            font-weight: 600;
+            color: #1f4e6e;
+        }
+        .trait-item i { color: #5a9acf; margin-right: 6px; }
+        .cos-stats {
+            display: flex;
+            gap: 1.8rem;
+            justify-content: center;
+            background: rgba(220, 240, 255, 0.7);
+            border-radius: 48px;
+            padding: 1.8rem;
+            backdrop-filter: blur(8px);
+        }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2c5a7a, #5a9acf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .skill-card {
+            background: rgba(240, 248, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 32px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: 0.2s;
+            border: 1px solid rgba(90, 154, 207, 0.4);
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: #5a9acf;
+            background: #e6f4ff;
+        }
+        .skill-icon { font-size: 2.5rem; margin-bottom: 1rem; color: #5a9acf; }
+        .skill-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.8rem; }
+        .skill-bar {
+            width: 100%;
+            height: 6px;
+            background: #c9e0f5;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .skill-progress {
+            height: 100%;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #5a9acf, #2c6a8e);
+            width: 0%;
+            transition: width 1s ease;
+        }
+        .cos-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .cos-card {
+            background: rgba(240, 248, 255, 0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 36px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #cce4f5;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.05);
+        }
+        .cos-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 28px rgba(44, 106, 142, 0.15);
+            border-color: #5a9acf;
+        }
+        .cos-img {
+            height: 260px;
+            background: #d9edff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cos-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #d9edff;
+        }
+        .cos-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 30% 20%, #d9edff, #b8d9ff);
+            color: #2c6a8e;
+            font-size: 3rem;
+        }
+        .cos-info {
+            padding: 1.2rem;
+            text-align: center;
+        }
+        .cos-info h3 { font-size: 1.3rem; color: #1f4e6e; }
+        .cos-info p { font-size: 0.85rem; color: #3a6e8e; margin-top: 6px; }
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2rem;
+        }
+        .project-card {
+            background: rgba(240, 248, 255, 0.8);
+            border-radius: 32px;
+            padding: 1.5rem;
+            transition: 0.2s;
+            border: 1px solid #d9edff;
+        }
+        .project-card:hover { background: #e6f4ff; border-color: #5a9acf; }
+        .project-icon { font-size: 2.5rem; color: #5a9acf; margin-bottom: 1rem; }
+        .project-tag {
+            display: inline-block;
+            background: #d9edff;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #1f4e6e;
+            margin-top: 1rem;
+        }
+        .contact-section { text-align: center; }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+            margin: 2rem 0 1rem;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(220, 240, 255, 0.9);
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            font-size: 1.7rem;
+            color: #2c6a8e;
+            transition: 0.2s;
+            border: 1px solid #a0c6e8;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            background: #5a9acf;
+            color: white;
+            transform: scale(1.08);
+        }
+        .email-badge {
+            background: #e6f4ff;
+            display: inline-block;
+            padding: 0.7rem 1.8rem;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            border: 1px solid #c0dcf5;
+            color: #1f4e6e;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: #5a8aaa;
+            border-top: 1px solid #cce4f5;
+        }
+        @media (max-width: 800px) {
+            section { padding: 3rem 5%; }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .dynamic-text { font-size: 1.4rem; }
+            .nav-links { display: none; }
+            .navbar { justify-content: center; }
+            .logo { font-size: 1.4rem; }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: all 0.6s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .bg-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: radial-gradient(#9ac2e0 1px, transparent 1px);
+            background-size: 35px 35px;
+            opacity: 0.2;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="glow-pointer" id="glowPointer"></div>
+<div class="bg-stars"></div>
+<div class="site-wrapper">
+    <nav class="navbar" id="navbar">
+        <div class="logo">🌸 何蕊 · 千面少女 🌸</div>
+        <div class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#about">关于我</a>
+            <a href="#cosSkills">绘梦技能</a>
+            <a href="#cosGallery">cos瞬间</a>
+            <a href="#works">漫展手记</a>
+            <a href="#contact">连结</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-greeting"><i class="fas fa-star"></i> こんにちは！这里是何蕊 <i class="fas fa-heart" style="color:#f27aae;"></i></div>
+            <h1>何蕊 · 破次元coser</h1>
+            <div class="dynamic-text"><span class="dynamic-word" id="changingWord">魔法少女变身中</span></div>
+            <p class="hero-desc">13岁 / 初一 · 坐标重庆 ✨ 沉迷cosplay与漫展，用热爱诠释每一个角色。<br>相信服装、妆容和镜头能点亮另一个自己。一起坠入二次元狂欢吧！</p>
+            <div class="btn-group">
+                <a href="#cosGallery" class="btn btn-primary"><i class="fas fa-camera-retro"></i> 看我的cos相册</a>
+                <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope-open-text"></i> 扩列交友</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>📖 关于·何蕊</h2>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>🎀 大家好！我是何蕊，一枚热爱二次元文化的初中女生。从第一次在漫展看到闪闪发光的coser开始，就掉进了这个魔法世界！<br>我享受自己动手修改假发、制作小道具，也喜欢和同好们一起出正片。每一次cos都是对角色灵魂的触摸～<br>💖 目前已经去过萤火虫、CICF等漫展，正在计划参加更多同人展！希望能认识志同道合的朋友，一起游场、一起集邮！</p>
+                    <div class="trait-list">
+                        <div class="trait-item"><i class="fas fa-mask"></i> 出勤10+漫展</div>
+                        <div class="trait-item"><i class="fas fa-paintbrush"></i> 妆造自学中</div>
+                        <div class="trait-item"><i class="fas fa-cut"></i> 道具手工爱好者</div>
+                        <div class="trait-item"><i class="fas fa-laugh-beam"></i> 性格活泼元气</div>
+                    </div>
+                </div>
+                <div class="cos-stats reveal">
+                    <div class="stat"><div class="stat-number">8+</div><div class="stat-label">还原角色</div></div>
+                    <div class="stat"><div class="stat-number">∞</div><div class="stat-label">次元热爱</div></div>
+                    <div class="stat"><div class="stat-number">2025</div><div class="stat-label">下一站·萤火虫</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cosSkills">
+        <div class="container">
+            <h2>🎭 我的coser技能树</h2>
+            <div class="skills-grid" id="skillsGrid"></div>
+        </div>
+    </section>
+
+    <section id="cosGallery">
+        <div class="container">
+            <h2>📸 我的cos瞬间 · 场照/正片</h2>
+            <div class="cos-gallery" id="cosGalleryContainer"></div>
+        </div>
+    </section>
+
+    <section id="works">
+        <div class="container">
+            <h2>🎪 漫展漂流手记</h2>
+            <div class="work-grid">
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-ticket-alt"></i></div>
+                    <h3>萤火虫动漫展·2024冬</h3>
+                    <p>第一次挑战“魔法少女小圆”变身，收到好多无料！现场live太感动了~ 还和喜欢的up主集邮啦！</p>
+                    <span class="project-tag">角色: 鹿目圆</span>
+                </div>
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-dragon"></i></div>
+                    <h3>CICF×AGC 初音未来企划</h3>
+                    <p>和社团一起出了初音未来和风造型，舞台走秀获得最受欢迎奖。自己手绘的扇子也被夸了！</p>
+                    <span class="project-tag">初音未来·樱花姬</span>
+                </div>
+                <div class="project-card reveal">
+                    <div class="project-icon"><i class="fas fa-user-astronaut"></i></div>
+                    <h3>同人展·星寰漫展</h3>
+                    <p>原创角色尝试，lo裙搭配cos元素，结识了好几个同好组成了“熬夜出片小分队”~</p>
+                    <span class="project-tag">原创幻想风</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>✨ 想和我一起逛展/  集邮？ ✨</h2>
+            <p style="margin-bottom: 1rem; color:#2c6a8e;">扩列欢迎～ 一起交流妆造、角色、二次元日常！</p>
+            <div class="social-links">
+                <!-- B站图标，可跳转，请替换 href 为B站主页 -->
+                <a href="https://space.bilibili.com/" target="_blank" class="social-icon"><i class="fab fa-bilibili"></i></a>
+                <!-- 抖音图标，可跳转，请替换 href 为抖音主页 -->
+                <a href="https://www.douyin.com/" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                <!-- QQ 和小红书图标暂无跳转，以后再说 -->
+                <a href="#" class="social-icon"><i class="fab fa-qq"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-xiaohongshu"></i></a>
+            </div>
+            <div class="email-badge">
+                <i class="fas fa-envelope"></i>  herui.cos@anime.com  |  企鹅：coser_herai
+            </div>
+        </div>
+    </section>
+
+    <footer><p>© 2025 何蕊の异次元手账 | 用cos定格青春，每一面都是真实的我 💕</p></footer>
+</div>
+
+<script>
+    // 动态标语
+    const tags = ["coser修行中", "次元穿梭少女", "妆娘修炼ing", "漫展集邮大师", "假发造型师预备役"];
+    let idx = 0;
+    const wordSpan = document.getElementById("changingWord");
+    function changeWord() {
+        idx = (idx + 1) % tags.length;
+        if (wordSpan) {
+            wordSpan.style.opacity = "0";
+            setTimeout(() => {
+                wordSpan.textContent = tags[idx];
+                wordSpan.style.opacity = "1";
+            }, 150);
+        }
+    }
+    setInterval(changeWord, 2200);
+
+    // 鼠标光晕
+    const glow = document.getElementById('glowPointer');
+    document.addEventListener('mousemove', (e) => {
+        if (glow) {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        }
+    });
+
+    // 导航栏滚动
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+        document.querySelectorAll('.reveal').forEach(el => {
+            const windowHeight = window.innerHeight;
+            const revealTop = el.getBoundingClientRect().top;
+            if (revealTop < windowHeight - 100) el.classList.add('active');
+        });
+    });
+
+    // 技能数据
+    const cosSkillsData = [
+        { name: "角色模仿 / 表现力", icon: "fas fa-theater-masks", percent: 88 },
+        { name: "假发造型 & 化妆", icon: "fas fa-brush", percent: 80 },
+        { name: "道具小手工", icon: "fas fa-hands", percent: 75 },
+        { name: "摄影摆姿 / 场照", icon: "fas fa-camera", percent: 82 },
+        { name: "服饰搭配 & 打理", icon: "fas fa-tshirt", percent: 86 },
+        { name: "后期修图 (ps)", icon: "fas fa-palette", percent: 70 }
+    ];
+    const skillsContainer = document.getElementById('skillsGrid');
+    if (skillsContainer) {
+        cosSkillsData.forEach(skill => {
+            const card = document.createElement('div');
+            card.className = 'skill-card reveal';
+            card.innerHTML = `
+                <div class="skill-icon"><i class="${skill.icon}"></i></div>
+                <div class="skill-name">${skill.name}</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="${skill.percent}"></div></div>
+                <div style="margin-top: 6px; font-size: 0.8rem; font-weight: 600;">${skill.percent}%</div>
+            `;
+            skillsContainer.appendChild(card);
+        });
+    }
+
+    // 进度条观察
+    const progressObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bar = entry.target.querySelector('.skill-progress');
+                if (bar && !bar.style.width) {
+                    const percent = bar.getAttribute('data-percent');
+                    bar.style.width = percent + '%';
+                }
+                progressObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.skill-card').forEach(card => progressObserver.observe(card));
+
+    // cos图库数据
+    const cosList = [
+        { name: "⚡ 雷电将军 ⚡", desc: "   ·威严与优雅并存", icon: "fas fa-bolt", role: "原神", img: "picture/雷电.jpg" },
+        { name: "🍃 少司缘 🍃", desc: "清风徐徐，缘起刹那", icon: "fas fa-feather-alt", role: "少司缘", img: "picture/少司缘.jpg" },
+        { name: "💧 朵莉亚 💧", desc: "深海之歌，人鱼公主", icon: "fas fa-water", role: "朵莉亚", img: "picture/朵莉亚.jpg" },
+        { name: "👑 芙宁娜 👑", desc: "枫丹水神，优雅与审判", icon: "fas fa-crown", role: "芙宁娜", img: "picture/芙宁娜.jpg" }
+    ];
+
+    const galleryDiv = document.getElementById('cosGalleryContainer');
+    if (galleryDiv) {
+        cosList.forEach((item, i) => {
+            const card = document.createElement('div');
+            card.className = 'cos-card reveal';
+            const hasImage = item.img && item.img.trim() !== "";
+            let imageHtml = '';
+            if (hasImage) {
+                imageHtml = `<img src="${item.img}" alt="${item.name}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'cos-placeholder\'><i class=\'${item.icon}\'></i><span>📷 图片加载失败</span></div>';">`;
+            } else {
+                imageHtml = `<div class="cos-placeholder"><i class="${item.icon}"></i><span>📷 待换cos照</span></div>`;
+            }
+            card.innerHTML = `
+                <div class="cos-img">
+                    ${imageHtml}
+                </div>
+                <div class="cos-info">
+                    <h3>${item.name}</h3>
+                    <p>${item.desc}</p>
+                    <span class="project-tag" style="background:#d9edff;">${item.role}</span>
+                </div>
+            `;
+            galleryDiv.appendChild(card);
+        });
+    }
+
+    // 滚动激活reveal
+    window.dispatchEvent(new Event('scroll'));
+    setTimeout(() => {
+        document.querySelectorAll('.skill-card .skill-progress').forEach(bar => {
+            if (bar.getBoundingClientRect().top < window.innerHeight - 80 && !bar.style.width) {
+                const percent = bar.getAttribute('data-percent');
+                bar.style.width = percent + '%';
+            }
+        });
+    }, 400);
+
+    // 平滑滚动
+    document.querySelectorAll('.nav-links a, .btn-primary, .btn-outline').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const target = document.getElementById(targetId);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+    document.querySelector('.btn-primary[href="#cosGallery"]')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('cosGallery')?.scrollIntoView({ behavior: 'smooth' });
+    });
+    document.querySelector('.btn-outline[href="#contact"]')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
